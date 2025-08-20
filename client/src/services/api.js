@@ -2,7 +2,8 @@ import axios from "axios";
 
 // Create an axios instance with base URL
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL || "http://localhost:9000/api",
+  baseURL:
+    process.env.REACT_APP_API_URL || "https://pod-pairer-server.vercel.app/api",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

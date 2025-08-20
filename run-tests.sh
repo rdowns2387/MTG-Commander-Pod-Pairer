@@ -3,7 +3,7 @@
 # Start the server in the background
 echo "Starting server..."
 cd server
-node server.js &
+node index.js &
 SERVER_PID=$!
 
 # Wait for server to start

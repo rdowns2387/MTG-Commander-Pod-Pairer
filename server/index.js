@@ -16,7 +16,7 @@ app.use(
   cors({
     origin:
       process.env.NODE_ENV === "production"
-        ? "https://pod-pairer-client.vercel.app/"
+        ? "https://pod-pairer-client.vercel.app"
         : "http://localhost:3000",
     credentials: true,
   })

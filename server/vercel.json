@@ -7,7 +7,7 @@
       "headers": [
         {
           "key": "Access-Control-Allow-Origin",
-          "value": "https://rrv7.vercel.app"
+          "value": "https://pod-pairer-client.vercel.app/"
         },
         {
           "key": "Access-Control-Allow-Methods",

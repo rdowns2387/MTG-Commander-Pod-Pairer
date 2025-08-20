@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '../contexts/AuthContext';
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -8,7 +8,7 @@ const Navbar = () => {
 
   const handleLogout = async () => {
     await logout();
-    navigate('/login');
+    navigate("/login");
   };
 
   const guestLinks = (
@@ -44,11 +44,11 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <h1>
-        <Link to="/">MTG Pod Pairer</Link>
+        <Link to="/">Pod Finder</Link>
       </h1>
       {currentUser ? (
         <>
-          <span className="welcome">Welcome, {currentUser.firstName}</span>
+          {/* <span className="welcome">Welcome, {currentUser.firstName}</span> */}
           {authLinks}
         </>
       ) : (

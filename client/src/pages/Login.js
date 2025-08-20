@@ -1,66 +1,62 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import AuthContext from '../contexts/AuthContext';
+import React, { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthContext";
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    email: '',
-    pin: ''
+    email: "",
+    pin: "",
   });
   const [alert, setAlert] = useState(null);
-  
+
   const { login, error, clearError, currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  
+
   const { email, pin } = formData;
-  
+
   useEffect(() => {
     // If user is already logged in, redirect to dashboard
     if (currentUser) {
-      navigate('/dashboard');
+      navigate("/dashboard");
     }
-    
+
     // Set alert if there's an error
     if (error) {
-      setAlert({ type: 'danger', msg: error });
+      setAlert({ type: "danger", msg: error });
       clearError();
     }
   }, [currentUser, navigate, error, clearError]);
-  
-  const onChange = e => {
+
+  const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  
-  const onSubmit = async e => {
+
+  const onSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Validate PIN format (4 digits)
     if (!/^\d{4}$/.test(pin)) {
-      setAlert({ type: 'danger', msg: 'PIN must be exactly 4 digits' });
+      setAlert({ type: "danger", msg: "PIN must be exactly 4 digits" });
       return;
     }
-    
+
     try {
       await login({ email, pin });
-      navigate('/dashboard');
+      navigate("/dashboard");
     } catch (err) {
-      setAlert({ 
-        type: 'danger', 
-        msg: err.response?.data?.message || 'Login failed' 
+      setAlert({
+        type: "danger",
+        msg: err.response?.data?.message || "Login failed",
       });
     }
   };
-  
+
   return (
     <div className="form-container">
-      <h1 className="form-title">Login</h1>
-      
-      {alert && (
-        <div className={`alert alert-${alert.type}`}>
-          {alert.msg}
-        </div>
-      )}
-      
+      <h1 className="form-title">EDH in PDX Pod Finder</h1>
+
+      {alert && <div className={`alert alert-${alert.type}`}>{alert.msg}</div>}
+
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -74,7 +70,7 @@ const Login = () => {
             required
           />
         </div>
-        
+
         <div className="form-group">
           <label htmlFor="pin">PIN (4 digits)</label>
           <input
@@ -89,12 +85,12 @@ const Login = () => {
             required
           />
         </div>
-        
+
         <button type="submit" className="btn btn-primary btn-block">
           Login
         </button>
       </form>
-      
+
       <p className="my-1">
         Don't have an account? <Link to="/register">Register</Link>
       </p>

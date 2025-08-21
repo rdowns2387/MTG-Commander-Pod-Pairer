@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import Logo from "../img/logo192.png";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -53,7 +54,8 @@ const Login = () => {
 
   return (
     <div className="form-container">
-      <h1 className="form-title">EDH in PDX Pod Finder</h1>
+      <img className="form-logo" src={Logo} />
+      <h1 className="form-title">Pod Finder</h1>
 
       {alert && <div className={`alert alert-${alert.type}`}>{alert.msg}</div>}
 

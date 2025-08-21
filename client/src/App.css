@@ -101,6 +101,16 @@ img {
   border-radius: 5px;
   background-color: var(--secondary-color);
   box-shadow: var(--box-shadow);
+  text-align: center;
+}
+
+.navbar-logo {
+  width: 2rem;
+}
+
+.form-logo {
+  width: 6rem;
+  height: auto;
 }
 
 .form-title {

@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
+import Logo from "../img/logo192.png";
 
 const Navbar = () => {
   const { currentUser, logout } = useContext(AuthContext);
@@ -44,7 +45,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <h1>
-        <Link to="/">Pod Finder</Link>
+        <Link to="/">EDH in PDX</Link>
       </h1>
       {currentUser ? (
         <>

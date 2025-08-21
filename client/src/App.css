@@ -266,7 +266,7 @@ img {
 
 /* Pod Card */
 .pod-card {
-  background: #fff;
+  background: var(--secondary-color);
   border-radius: 0.25rem;
   box-shadow: var(--box-shadow);
   margin-bottom: 1.5rem;
@@ -294,7 +294,7 @@ img {
 }
 
 .pod-player {
-  background: var(--light-color);
+  background: black;
   padding: 1rem;
   border-radius: 0.25rem;
   text-align: center;
@@ -346,10 +346,25 @@ img {
   font-family: var(--site-font);
   font-weight: 600;
   margin-bottom: 0.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 0.25rem;
   flex-grow: 1;
-  text-align: center;
+  min-height: 10rem;
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: nowrap;
+
+  .commander-name {
+    font-weight: var(--font-weight__text);
+  }
+}
+
+.commander-name {
+  font-weight: --;
+}
+
+.game-winner {
+  background-color: gold;
 }
 
 /* Rating */
@@ -357,6 +372,7 @@ img {
   display: flex;
   gap: 0.25rem;
   margin: 0.5rem 0;
+  justify-content: center;
 }
 
 .star {

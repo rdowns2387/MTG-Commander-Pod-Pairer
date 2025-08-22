@@ -164,11 +164,11 @@ const PodConfirmation = () => {
                     ? "#d4edda"
                     : player.rejected
                     ? "#f8d7da"
-                    : "#f8f9fa",
+                    : "black",
                 }}
               >
                 <p>
-                  {player.user.firstName} {player.user.lastName}
+                  {player.user.firstName} {player.user.lastName.slice(0, 1)}.
                 </p>
                 <p>
                   {player.confirmed
@@ -209,7 +209,7 @@ const PodConfirmation = () => {
           ) : timeLeft === 0 ? (
             <div className="alert alert-warning">
               Time expired! You will be placed back in the queue.
-              {resetParticipants()}
+              {/* {resetParticipants()} */}
             </div>
           ) : (
             <div className="alert alert-info">

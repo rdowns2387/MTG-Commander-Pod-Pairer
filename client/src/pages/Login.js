@@ -55,7 +55,7 @@ const Login = () => {
   return (
     <div className="form-container">
       <img className="form-logo" src={Logo} />
-      <h1 className="form-title">Pod Finder</h1>
+      <h1 className="form-title">Log in</h1>
 
       {alert && <div className={`alert alert-${alert.type}`}>{alert.msg}</div>}
 

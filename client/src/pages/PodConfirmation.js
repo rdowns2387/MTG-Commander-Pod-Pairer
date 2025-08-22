@@ -209,6 +209,7 @@ const PodConfirmation = () => {
           ) : timeLeft === 0 ? (
             <div className="alert alert-warning">
               Time expired! You will be placed back in the queue.
+              {resetParticipants()}
             </div>
           ) : (
             <div className="alert alert-info">

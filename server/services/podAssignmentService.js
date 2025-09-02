@@ -254,19 +254,18 @@ exports.handlePodTimeouts = async () => {
       };
     }
 
-    // Update pod status and kick players out of queue
+    // Delete timed out pod kick players out of queue
     for (const pod of timedOutPods) {
-      pod.status = "timeout";
-      await pod.save();
-
       // Kick all players out of the queue
       const playerIds = pod.players.map((player) => player.user);
       await User.updateMany({ _id: { $in: playerIds } }, { inQueue: false });
+      // Delete the pod
+      await pod.deleteOne();
     }
 
     return {
       success: true,
-      message: `Updated ${timedOutPods.length} timed out pods`,
+      message: `Deleted timed out pod and removed players from the queue`,
       podsUpdated: timedOutPods.length,
     };
   } catch (error) {

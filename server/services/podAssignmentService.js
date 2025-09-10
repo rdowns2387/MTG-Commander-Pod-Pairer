@@ -52,7 +52,7 @@ const calculateCompatibilityScore = async (player1Id, player2Id) => {
   // Check if they've played together recently (negative factor)
   const playedRecently = await havePlayedTogether(player1Id, player2Id);
   if (playedRecently) {
-    score -= 0; //10; //changed from 10 to 0 to limit rejections
+    score = 0; //10; //changed from 10 to 0 to limit rejections
   }
 
   // Check ratings between players (positive factor)
@@ -68,15 +68,19 @@ const calculateCompatibilityScore = async (player1Id, player2Id) => {
 
   // If they've rated each other highly, increase score
   if (rating1to2) {
-    score += (rating1to2.rating - 3) * 2; // -4 to +4 points based on rating
+    //score += (rating1to2.rating - 3) * 2; // -4 to +4 points based on rating
+    score = 0;
   } else {
-    score += 2; // Bonus for never having played together
+    //score += 2; // Bonus for never having played together
+    score = 0;
   }
 
   if (rating2to1) {
-    score += (rating2to1.rating - 3) * 2; // -4 to +4 points based on rating
+    //score += (rating2to1.rating - 3) * 2; // -4 to +4 points based on rating
+    score = 0;
   } else {
-    score += 2; // Bonus for never having played together
+    //score += 2;  Bonus for never having played together
+    score = 0;
   }
 
   // Count how many times they've played together (negative factor)
@@ -84,7 +88,7 @@ const calculateCompatibilityScore = async (player1Id, player2Id) => {
     player1Id,
     player2Id
   );
-  score -= 0; //playCount; // -1 point per previous match -- changed to 0 to limit rejections
+  score = 0; //playCount; // -1 point per previous match -- changed to 0 to limit rejections
 
   return score;
 };

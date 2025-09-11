@@ -43,7 +43,7 @@ npm run install-all
 
 ```
 PORT=9000
-MONGODB_URI=mongodb+srv://rdowns2387:BasementDrywall2026!@myusers.jsqlvmk.mongodb.net/pod-pairer
+MONGODB_URI=******
 JWT_SECRET=your_jwt_secret_key
 NODE_ENV=development
 ```

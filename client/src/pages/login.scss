@@ -1,0 +1,15 @@
+.guest-login {
+  font-weight: 600;
+  background-color: #ea2164;
+  color: #ffc580;
+  padding: 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.guest-login:hover {
+  background-color: #aa114c;
+  top: -10px;
+}

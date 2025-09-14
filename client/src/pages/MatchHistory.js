@@ -146,7 +146,7 @@ const MatchHistory = () => {
                     <div className="fg-1">
                       <p>
                         {player.wonGame && " 👑 "} {player.user.firstName}{" "}
-                        {player.user.lastName.slice(0, 1)}.
+                        {player.user.lastName}.
                       </p>
                       <span className="commander-name">
                         {player?.commander?.name}

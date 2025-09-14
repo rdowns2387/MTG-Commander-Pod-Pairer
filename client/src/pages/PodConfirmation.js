@@ -154,12 +154,16 @@ const PodConfirmation = () => {
           )}
 
           <h3>Players</h3>
+          <p>
+            You are: {currentUser.firstName} {currentUser.lastName}
+          </p>
           <div className="pod-players">
             {pod.players.map((player) => (
               <div
                 key={player.user._id}
                 className="pod-player"
                 style={{
+                  color: player.confirmed && "green",
                   backgroundColor: player.confirmed
                     ? "#d4edda"
                     : player.rejected
@@ -168,7 +172,7 @@ const PodConfirmation = () => {
                 }}
               >
                 <p>
-                  {player.user.firstName} {player.user.lastName.slice(0, 1)}.
+                  {player.user.firstName} {player.user.lastName}
                 </p>
                 <p>
                   {player.confirmed

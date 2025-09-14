@@ -2,6 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import Logo from "../img/logo192.png";
+import { authAPI } from "../services/api";
+import { faker } from "@faker-js/faker";
+import "./login.scss";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -14,10 +17,11 @@ const Login = () => {
   const navigate = useNavigate();
 
   const { email, pin } = formData;
+  const [guestUser, setGuestUser] = useState(null);
 
   useEffect(() => {
     // If user is already logged in, redirect to dashboard
-    if (currentUser) {
+    if (currentUser || guestUser) {
       navigate("/dashboard");
     }
 
@@ -26,10 +30,26 @@ const Login = () => {
       setAlert({ type: "danger", msg: error });
       clearError();
     }
-  }, [currentUser, navigate, error, clearError]);
+  }, [currentUser, guestUser, navigate, error, clearError]);
 
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleGuest = async () => {
+    let userData = { firstName: "", lastName: "", pin: "", email: "" };
+    userData.firstName = faker.word.adjective().toUpperCase();
+    userData.lastName = faker.animal.type().toUpperCase();
+    userData.pin = Math.floor(1000 + Math.random() * 9000).toString();
+    userData.email = `guest${Math.floor(
+      1000 + Math.random() * 9000
+    )}@email.com`;
+    userData.isGuest = true;
+
+    await authAPI.register(userData);
+    await login({ email: userData.email, pin: userData.pin });
+
+    setGuestUser(userData);
   };
 
   const onSubmit = async (e) => {
@@ -58,7 +78,14 @@ const Login = () => {
       <h1 className="form-title">Log in</h1>
 
       {alert && <div className={`alert alert-${alert.type}`}>{alert.msg}</div>}
-
+      <p
+        className="my-1 guest-login"
+        onClick={() => {
+          handleGuest();
+        }}
+      >
+        Queue as a Guest
+      </p>
       <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>

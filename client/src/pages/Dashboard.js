@@ -145,7 +145,11 @@ const Dashboard = () => {
 
       <div className="queue-status">
         <div>
-          {currentUser && <p>Welcome, {currentUser.firstName}!</p>}
+          {currentUser && (
+            <p>
+              Welcome, {currentUser.firstName} {currentUser.lastName}!
+            </p>
+          )}
           <p className="queue-status-text">
             Players in queue: <strong>{queueStatus.queueCount}</strong>
           </p>

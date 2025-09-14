@@ -1,39 +1,40 @@
-const { User } = require('../models');
-const { sendTokenResponse } = require('../middleware/auth');
+const { User } = require("../models");
+const { sendTokenResponse } = require("../middleware/auth");
 
 // @desc    Register user
 // @route   POST /api/auth/register
 // @access  Public
 exports.register = async (req, res, next) => {
   try {
-    const { firstName, lastName, email, pin } = req.body;
-    
+    const { firstName, lastName, email, pin, isGuest } = req.body;
+
     // Validate PIN format (4 digits)
     if (!/^\d{4}$/.test(pin)) {
       return res.status(400).json({
         success: false,
-        message: 'PIN must be exactly 4 digits'
+        message: "PIN must be exactly 4 digits",
       });
     }
-    
+
     // Check if user already exists
     const userExists = await User.findOne({ email });
-    
+
     if (userExists) {
       return res.status(400).json({
         success: false,
-        message: 'Email already registered'
+        message: "Email already registered",
       });
     }
-    
+
     // Create user
     const user = await User.create({
       firstName,
       lastName,
       email,
-      pin
+      pin,
+      isGuest,
     });
-    
+
     // Send token response
     sendTokenResponse(user, 201, res);
   } catch (error) {
@@ -47,35 +48,35 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const { email, pin } = req.body;
-    
+
     // Validate email & pin
     if (!email || !pin) {
       return res.status(400).json({
         success: false,
-        message: 'Please provide email and PIN'
+        message: "Please provide email and PIN",
       });
     }
-    
+
     // Check for user
     const user = await User.findOne({ email });
-    
+
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: 'Invalid credentials'
+        message: "Invalid credentials",
       });
     }
-    
+
     // Check if PIN matches
     const isMatch = await user.matchPin(pin);
-    
+
     if (!isMatch) {
       return res.status(401).json({
         success: false,
-        message: 'Invalid credentials'
+        message: "Invalid credentials",
       });
     }
-    
+
     // Send token response
     sendTokenResponse(user, 200, res);
   } catch (error) {
@@ -88,14 +89,14 @@ exports.login = async (req, res, next) => {
 // @access  Private
 exports.logout = async (req, res, next) => {
   try {
-    res.cookie('token', 'none', {
+    res.cookie("token", "none", {
       expires: new Date(Date.now() + 10 * 1000),
-      httpOnly: true
+      httpOnly: true,
     });
-    
+
     res.status(200).json({
       success: true,
-      message: 'User logged out successfully'
+      message: "User logged out successfully",
     });
   } catch (error) {
     next(error);
@@ -108,7 +109,7 @@ exports.logout = async (req, res, next) => {
 exports.getMe = async (req, res, next) => {
   try {
     const user = await User.findById(req.user.id);
-    
+
     res.status(200).json({
       success: true,
       data: {
@@ -117,8 +118,8 @@ exports.getMe = async (req, res, next) => {
         lastName: user.lastName,
         email: user.email,
         inQueue: user.inQueue,
-        readyForNextGame: user.readyForNextGame
-      }
+        readyForNextGame: user.readyForNextGame,
+      },
     });
   } catch (error) {
     next(error);
@@ -133,14 +134,14 @@ exports.updateDetails = async (req, res, next) => {
     const fieldsToUpdate = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      email: req.body.email
+      email: req.body.email,
     };
-    
+
     const user = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
       new: true,
-      runValidators: true
+      runValidators: true,
     });
-    
+
     res.status(200).json({
       success: true,
       data: {
@@ -149,8 +150,8 @@ exports.updateDetails = async (req, res, next) => {
         lastName: user.lastName,
         email: user.email,
         inQueue: user.inQueue,
-        readyForNextGame: user.readyForNextGame
-      }
+        readyForNextGame: user.readyForNextGame,
+      },
     });
   } catch (error) {
     next(error);
@@ -163,33 +164,33 @@ exports.updateDetails = async (req, res, next) => {
 exports.updatePin = async (req, res, next) => {
   try {
     const { currentPin, newPin } = req.body;
-    
+
     // Validate PIN format (4 digits)
     if (!/^\d{4}$/.test(newPin)) {
       return res.status(400).json({
         success: false,
-        message: 'PIN must be exactly 4 digits'
+        message: "PIN must be exactly 4 digits",
       });
     }
-    
+
     const user = await User.findById(req.user.id);
-    
+
     // Check current PIN
     const isMatch = await user.matchPin(currentPin);
-    
+
     if (!isMatch) {
       return res.status(401).json({
         success: false,
-        message: 'Current PIN is incorrect'
+        message: "Current PIN is incorrect",
       });
     }
-    
+
     user.pin = newPin;
     await user.save();
-    
+
     res.status(200).json({
       success: true,
-      message: 'PIN updated successfully'
+      message: "PIN updated successfully",
     });
   } catch (error) {
     next(error);

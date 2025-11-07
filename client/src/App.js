@@ -5,7 +5,7 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import "./App.css";
+import "./App.scss";
 
 // Pages
 import Login from "./pages/Login";
@@ -21,6 +21,7 @@ import PrivateRoute from "./components/PrivateRoute";
 
 // Context
 import { AuthProvider } from "./contexts/AuthContext";
+import { Footer } from "./components/Footer";
 
 function App() {
   return (
@@ -67,6 +68,7 @@ function App() {
               />
             </Routes>
           </div>
+          <Footer />
         </div>
       </Router>
     </AuthProvider>

@@ -8,11 +8,6 @@ export const Footer = () => {
         <div>
           <img className="footer-logo" src={Logo} />
         </div>
-        <div className="">
-          <a href="" target="_blank">
-            Join us on Discord
-          </a>
-        </div>
       </div>
     </div>
   );

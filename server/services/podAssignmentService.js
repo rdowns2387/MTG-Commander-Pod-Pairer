@@ -19,20 +19,21 @@ const countPlayersFromLastPod = async (playerIds) => {
   );
 
   // Count players who were in the same last pod
-  const lastPodPlayers = new Map();
+  // const lastPodPlayers = new Map();
 
-  lastPods.forEach((pod) => {
-    if (!pod) return;
+  // lastPods.forEach((pod) => {
+  //   if (!pod) return;
 
-    pod.players.forEach((player) => {
-      const playerId = player.user._id.toString();
-      if (lastPodPlayers.has(playerId)) {
-        lastPodPlayers.set(playerId, lastPodPlayers.get(playerId) + 1);
-      } else {
-        lastPodPlayers.set(playerId, 1);
-      }
-    });
-  });
+  //   pod.players.forEach((player) => {
+  //     console.log(player);
+  //     const playerId = player.user._id.toString();
+  //     if (lastPodPlayers.has(playerId)) {
+  //       lastPodPlayers.set(playerId, lastPodPlayers.get(playerId) + 1);
+  //     } else {
+  //       lastPodPlayers.set(playerId, 1);
+  //     }
+  //   });
+  // });
 
   // Count how many players from the current group were in the same last pod
   let sameLastPodCount = 0;
@@ -96,10 +97,10 @@ const calculateCompatibilityScore = async (player1Id, player2Id) => {
 // Helper function to evaluate a potential pod
 const evaluatePodScore = async (playerIds) => {
   // Check if more than 3 players were in the same last pod (disqualifying factor)
-  const sameLastPodCount = await countPlayersFromLastPod(playerIds);
-  if (sameLastPodCount > 3) {
-    return 0; // Heavily penalize this combination -- changed from 1000 to 0 to limit rejections
-  }
+  // const sameLastPodCount = await countPlayersFromLastPod(playerIds);
+  // if (sameLastPodCount > 3) {
+  //   return 0; // Heavily penalize this combination -- changed from 1000 to 0 to limit rejections
+  // }
 
   // Calculate compatibility scores between all pairs
   let totalScore = 0;
@@ -126,7 +127,7 @@ exports.createPods = async () => {
     if (queuedPlayers.length < 4) {
       return {
         success: false,
-        message: "Not enough players in queue to form a pod",
+        message: `Not enough players in queue to form a pod. Player count: ${queuedPlayers.length}`,
         podsCreated: 0,
       };
     }
@@ -230,6 +231,7 @@ exports.createPods = async () => {
       message: `Created ${podsCreated.length} pods`,
       podsCreated: podsCreated.length,
       pods: podsCreated,
+      resetTime: true,
     };
   } catch (error) {
     console.error("Pod assignment error:", error);
@@ -237,6 +239,7 @@ exports.createPods = async () => {
       success: false,
       message: "Error creating pods",
       error: error.message,
+      resetTime: true,
     };
   }
 };

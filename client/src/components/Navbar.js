@@ -37,7 +37,7 @@ const Navbar = () => {
       ) : (
         <>
           <li>
-            <Link to="/match-history">Match History</Link>
+            <Link to="/match-history">History</Link>
           </li>
           <li>
             <Link to="/profile">Profile</Link>

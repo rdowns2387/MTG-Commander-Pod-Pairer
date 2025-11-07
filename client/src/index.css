@@ -101,11 +101,11 @@ code {
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .main-content {
-    margin-top: 6rem;
+    /* margin-top: 6rem; */
   }
 
   .form-container {
-    margin: 7rem auto 2rem;
+    /* margin: 7rem auto 2rem; */
     padding: 1.5rem;
   }
 

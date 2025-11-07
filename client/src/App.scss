@@ -31,7 +31,7 @@
   flex-direction: column;
   justify-content: space-between;
   .container {
-    margin-top: 15%;
+    margin: auto;
   }
 }
 
@@ -70,7 +70,6 @@ img {
   justify-content: space-between;
   align-items: center;
   padding: 0.7rem 2rem;
-  position: fixed;
   top: 0;
   width: 100%;
   z-index: 1;
@@ -99,7 +98,6 @@ img {
 
 /* Main Content */
 .main-content {
-  margin-top: 4rem;
   padding: 1rem;
   .username-container {
     text-align: center;
@@ -109,7 +107,6 @@ img {
 /* Forms */
 .form-container {
   max-width: 500px;
-  margin: 5rem auto;
   overflow: hidden;
   padding: 2rem;
   border-radius: 5px;

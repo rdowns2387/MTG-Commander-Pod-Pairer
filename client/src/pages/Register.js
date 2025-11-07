@@ -63,9 +63,8 @@ const Register = () => {
 
   return (
     <div className="form-container">
-      <img className="form-logo" src={Logo} />
-
       <h1 className="form-title">Register</h1>
+      <p>Track pod history and rate your games</p>
 
       {alert && <div className={`alert alert-${alert.type}`}>{alert.msg}</div>}
 

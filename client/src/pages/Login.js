@@ -74,52 +74,54 @@ const Login = () => {
 
   return (
     <div className="form-container">
-      <img className="form-logo" src={Logo} />
-      <h1 className="form-title">Log in</h1>
+      <h1 className="form-title">Pod Up</h1>
+      <p className="form-description">Find your next Commander pod!</p>
 
       {alert && <div className={`alert alert-${alert.type}`}>{alert.msg}</div>}
-      <p
-        className="my-1 guest-login"
+      <div class="section">
+        <form onSubmit={onSubmit}>
+          <div className="form-group">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              value={email}
+              onChange={onChange}
+              className="form-control"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="pin">PIN (4 digits)</label>
+            <input
+              type="password"
+              name="pin"
+              id="pin"
+              value={pin}
+              onChange={onChange}
+              className="form-control"
+              maxLength="4"
+              pattern="[0-9]{4}"
+              required
+            />
+          </div>
+
+          <button type="submit" className="my-1 btn btn-primary btn-block">
+            Login
+          </button>
+        </form>
+      </div>
+      <button
+        type="submit"
         onClick={() => {
           handleGuest();
         }}
+        className="my-1 btn btn-secondary btn-block"
       >
-        Queue as a Guest
-      </p>
-      <form onSubmit={onSubmit}>
-        <div className="form-group">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            value={email}
-            onChange={onChange}
-            className="form-control"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="pin">PIN (4 digits)</label>
-          <input
-            type="password"
-            name="pin"
-            id="pin"
-            value={pin}
-            onChange={onChange}
-            className="form-control"
-            maxLength="4"
-            pattern="[0-9]{4}"
-            required
-          />
-        </div>
-
-        <button type="submit" className="btn btn-primary btn-block">
-          Login
-        </button>
-      </form>
-
+        Queue as a guest
+      </button>
       <p className="my-1">
         Don't have an account? <Link to="/register">Register</Link>
       </p>

@@ -28,33 +28,36 @@ const Navbar = () => {
       <li>
         <Link to="/dashboard">Dashboard</Link>
       </li>
-      <li>
-        <Link to="/match-history">Match History</Link>
-      </li>
-      <li>
-        <Link to="/profile">Profile</Link>
-      </li>
-      <li>
-        <a href="#!" onClick={handleLogout}>
-          Logout
-        </a>
-      </li>
+      {currentUser?.email.includes("guest") ? (
+        <li>
+          <a href="#!" onClick={handleLogout}>
+            Logout
+          </a>
+        </li>
+      ) : (
+        <>
+          <li>
+            <Link to="/match-history">Match History</Link>
+          </li>
+          <li>
+            <Link to="/profile">Profile</Link>
+          </li>
+          <li>
+            <a href="#!" onClick={handleLogout}>
+              Logout
+            </a>
+          </li>
+        </>
+      )}
     </ul>
   );
 
   return (
     <nav className="navbar">
       <h1>
-        <Link to="/">EDH in PDX</Link>
+        <Link to="/">Pod Up</Link>
       </h1>
-      {currentUser ? (
-        <>
-          {/* <span className="welcome">Welcome, {currentUser.firstName}</span> */}
-          {authLinks}
-        </>
-      ) : (
-        guestLinks
-      )}
+      {currentUser ? <>{authLinks}</> : guestLinks}
     </nav>
   );
 };

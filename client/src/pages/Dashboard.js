@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
 import { queueAPI, podAPI } from "../services/api";
-import "../App.css";
+import "../App.scss";
 
 const Dashboard = () => {
   const { currentUser } = useContext(AuthContext);
@@ -16,10 +16,25 @@ const Dashboard = () => {
   const [currentPod, setCurrentPod] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(10);
+  const [isRunning, setIsRunning] = useState(false);
+
+  useEffect(() => {
+    let interval;
+    if (timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+    } else if (timeLeft === 0) {
+      clearInterval(interval); // Stop the timer when it reaches zero
+    }
+    return () => clearInterval(interval); // Cleanup on unmount or dependency change
+  }, [timeLeft]);
 
   // Load queue status and check for current pod
   useEffect(() => {
     const loadData = async () => {
+      setTimeLeft(10);
       try {
         setLoading(true);
         setError(null);
@@ -139,31 +154,30 @@ const Dashboard = () => {
 
   return (
     <div className="main-content">
-      <h1 className="poppins-extrabold">Dashboard</h1>
+      <div className="username-container">
+        <p>Welcome</p>
+        <h1 className="poppins-extrabold">
+          {" "}
+          {currentUser.email.includes("guest") ? (
+            <p>{`${currentUser.firstName} ${currentUser.lastName}`}</p>
+          ) : (
+            <p>{`${currentUser.firstName}`}</p>
+          )}
+        </h1>
+      </div>
 
       {error && <div className="alert alert-danger">{error}</div>}
 
       <div className="queue-status">
         <div>
-          {currentUser && (
-            <p>
-              Welcome, {currentUser.firstName} {currentUser.lastName}!
-            </p>
-          )}
-          <p className="queue-status-text">
-            Players in queue: <strong>{queueStatus.queueCount}</strong>
-          </p>
-          <p>
-            Your status:{" "}
-            <strong>{queueStatus.inQueue ? "In Queue" : "Not in Queue"}</strong>
-            {queueStatus.readyForNextGame && " (Ready for next game)"}
-          </p>
-        </div>
+          <h1 className="queue-count">
+            <strong>{queueStatus.queueCount}</strong>
+          </h1>
+          <p className="my-1">players currently in queue</p>
 
-        <div className="queue-actions">
           {!queueStatus.inQueue ? (
             <button
-              className="btn btn-primary"
+              className="btn btn-primary my-1"
               onClick={handleJoinQueue}
               disabled={loading}
             >
@@ -172,7 +186,7 @@ const Dashboard = () => {
           ) : (
             <>
               <button
-                className="btn btn-danger"
+                className="btn btn-danger my-1"
                 onClick={handleLeaveQueue}
                 disabled={loading}
               >
@@ -198,11 +212,15 @@ const Dashboard = () => {
               )} */}
             </>
           )}
+          <p>
+            Attempting next match in {timeLeft}
+            ...
+          </p>
         </div>
       </div>
 
       <div className="card">
-        <h2>How It Works</h2>
+        <h2>How this works</h2>
         <div className="card-body">
           <ol>
             <li>Join the queue when you're ready to play</li>
@@ -211,14 +229,19 @@ const Dashboard = () => {
               4 players
             </li>
             <li>You'll have 2 minutes to confirm your spot in the pod</li>
-            <li>
-              After your game, you can rate the other players and join the queue
-              for another game
-            </li>
-            <li>
-              The system will try to pair you with players you haven't played
-              with before
-            </li>
+            {!currentUser.email.includes("guest") && (
+              <>
+                {" "}
+                <li>
+                  After your game, you can rate the other players and join the
+                  queue for another game
+                </li>
+                <li>
+                  The system will try to pair you with players you haven't
+                  played with before
+                </li>
+              </>
+            )}
           </ol>
         </div>
       </div>

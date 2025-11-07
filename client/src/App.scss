@@ -6,6 +6,7 @@
   --light-color: #f4eee0;
   --dark-color: #393646;
   --success-color: #2ecc71;
+  --sunburst-yellow: #f39c12;
   --warning-color: #f39c12;
   --danger-color: #e74c3c;
   --box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -90,6 +91,9 @@ img {
 .main-content {
   margin-top: 4rem;
   padding: 1rem;
+  .username-container {
+    text-align: center;
+  }
 }
 
 /* Forms */
@@ -99,24 +103,42 @@ img {
   overflow: hidden;
   padding: 2rem;
   border-radius: 5px;
+  text-align: center;
   background-color: var(--secondary-color);
   box-shadow: var(--box-shadow);
-  text-align: center;
+  .section {
+    border-bottom: 1px solid var(--light-color);
+    margin-bottom: 1rem;
+    .guest-login {
+      font-weight: 600;
+      background-color: var(--primary-button);
+      padding: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .section-header {
+      font-weight: 600;
+    }
+  }
 }
 
 .navbar-logo {
   width: 2rem;
 }
 
-.form-logo {
+.footer-logo {
   width: 6rem;
   height: auto;
 }
 
 .form-title {
   text-align: center;
-  margin-bottom: 2rem;
-  color: white;
+  color: var(--sunburst-yellow);
+}
+
+.form-description {
+  margin-bottom: 1rem;
 }
 
 .form-group {
@@ -126,7 +148,6 @@ img {
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
-  font-weight: bold;
 }
 
 .form-control {
@@ -172,7 +193,7 @@ img {
 }
 
 .btn-secondary {
-  background: var(--secondary-color);
+  background: var(--secondary-button);
   color: #fff;
 }
 
@@ -244,7 +265,7 @@ img {
 
 /* Queue Status */
 .queue-status {
-  display: flex;
+  text-align: center;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
@@ -252,6 +273,13 @@ img {
   background: var(--secondary-color);
   border-radius: 0.25rem;
   box-shadow: var(--box-shadow);
+  .queue-count {
+    font-size: 4rem;
+    color: var(--sunburst-yellow);
+  }
+  .queue-count-text {
+    margin-bottom: 1rem;
+  }
 }
 
 .queue-status-text {
@@ -386,6 +414,15 @@ img {
 
 .star-empty {
   color: #ccc;
+}
+
+/* FOOTER */
+.footer {
+  padding: 2rem;
+  background-color: black;
+  .footer-content {
+    text-align: center;
+  }
 }
 
 /*Custom fonts */

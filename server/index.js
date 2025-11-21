@@ -52,7 +52,7 @@ if (process.env.NODE_ENV === "production") {
 } else {
   // Root route for development
   app.get("/", (req, res) => {
-    res.send("MTG Pod Pairer API is running");
+    res.send("Pod Up API is running");
   });
 }
 
